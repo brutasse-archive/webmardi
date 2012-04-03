@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load thumbnail markup %}
+
+{% block content %}
+	<h1>Cheese types <a href="{% url add_cheese %}" class="btn btn-primary">+ Add</a></h1>
+
+	{% for cheese in cheeses %}
+		<h2>{{ cheese.name }}</h2>
+		<div class="row">
+			<div class="span4">
+				<img src="{% thumbnail cheese.image 300x300 crop %}">
+			</div>
+			<div class="span8">
+				{{ cheese.description|markdown }}
+				<p>
+				<a class="btn" href="{% url cheese_detail cheese.pk %}">Details</a>
+				<span class="badge badge-success">{{ cheese.like_count }} likes</span>
+				<span class="badge badge-error">{{ cheese.dislike_count }} dislikes</span>
+				</p>
+			</div>
+		</div>
+	{% endfor %}
+{% endblock %}

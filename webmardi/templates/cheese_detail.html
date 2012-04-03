@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load thumbnail markup %}
+
+{% block title %}{{ cheese.name }}{% endblock %}
+
+{% block content %}
+	<h1>{{ cheese.name }}</h1>
+
+	<div class="row">
+		<div class="span4">
+			<img src="{% thumbnail cheese.image 300x300 crop %}">
+		</div>
+		<div class="span8">
+			{{ cheese.description|markdown }}
+			<p>
+				<span class="badge badge-success">{{ cheese.like_count }} likes</span>
+				<span class="badge badge-error">{{ cheese.dislike_count }} dislikes</span>
+			</p>
+			<p><br>
+				{% if taste %}
+					{% if taste.like %}
+						You currently <strong>like</strong> this.
+						<form method="post" action="{% url dislike_cheese cheese.pk %}">
+							{% csrf_token %}
+							<input type="submit" class="btn btn-danger" value="Dislike">
+						</form>
+					{% else %}
+						You currently <strong>dislike</strong> this.
+						<form method="post" action="{% url like_cheese cheese.pk %}">
+							{% csrf_token %}
+							<input type="submit" class="btn btn-success" value="Like">
+						</form>
+					{% endif %}
+				{% else %}
+					<form method="post" action="{% url like_cheese cheese.pk %}">
+						{% csrf_token %}
+						<input type="submit" class="btn btn-success" value="Like">
+					</form>
+					<form method="post" action="{% url dislike_cheese cheese.pk %}">
+						{% csrf_token %}
+						<input type="submit" class="btn btn-danger" value="Dislike">
+					</form>
+				{% endif %}
+			</p>
+		</div>
+	</div>
+{% endblock %}

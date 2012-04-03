@@ -1,0 +1,9 @@
+Django==1.4
+Markdown==2.1.1
+PIL==1.1.7
+django-debug-toolbar==0.9.4
+django-le-social==0.5
+easy-thumbnails==1.0-alpha-21
+itsdangerous==0.12
+python-openid==2.2.5
+twitter==1.7.2

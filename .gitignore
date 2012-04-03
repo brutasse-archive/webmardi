@@ -1,0 +1,3 @@
+*.sqlite
+webmardi/media
+webmardi/settings.py
